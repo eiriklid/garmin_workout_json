@@ -1,0 +1,780 @@
+{
+  "workoutId": 1234,
+  "ownerId": 100441918,
+  "workoutName": "Core 4",
+  "description": "gøt",
+  "updatedDate": "2025-04-07T18:13:45.182199+00:00",
+  "createdDate": "2025-04-07T18:13:45.182199+00:00",
+  "sportType": {
+    "sportTypeId": 4,
+    "sportTypeKey": "swimming",
+    "displayOrder": 3
+  },
+  "subSportType": null,
+  "trainingPlanId": null,
+  "author": {
+    "userProfilePk": 100441918,
+    "displayName": "ea022d71-d096-4261-a5cd-9fb3aa2bf953",
+    "fullName": "Eirik Vårli Lid",
+    "profileImgNameLarge": null,
+    "profileImgNameMedium": "ff381b64-b337-4dd4-8b7e-3ca04c1b0528-100441918.png",
+    "profileImgNameSmall": "bce65d55-03d1-427f-a603-ed8e9a545985-100441918.png",
+    "userPro": false,
+    "vivokidUser": false
+  },
+  "sharedWithUsers": null,
+  "estimatedDurationInSecs": 0,
+  "estimatedDistanceInMeters": 200.0,
+  "workoutSegments": [
+    {
+      "segmentOrder": 1,
+      "sportType": {
+        "sportTypeId": 4,
+        "sportTypeKey": "swimming",
+        "displayOrder": 3
+      },
+      "poolLengthUnit": null,
+      "poolLength": null,
+      "avgTrainingSpeed": null,
+      "estimatedDurationInSecs": null,
+      "estimatedDistanceInMeters": 50.0,
+      "estimatedDistanceUnit": null,
+      "estimateType": null,
+      "description": null,
+      "workoutSteps": [
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 100,
+          "stepOrder": 1,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "warmup",
+            "displayOrder": 1
+          },
+          "childStepId": null,
+          "description": "warmup rep 1",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 16.666666666666668,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 6,
+            "strokeTypeKey": "free",
+            "displayOrder": 6
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 101,
+          "stepOrder": 2,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 1",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 35.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 102,
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "warmup",
+            "displayOrder": 1
+          },
+          "childStepId": null,
+          "description": "warmup rep 2",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 16.666666666666668,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 6,
+            "strokeTypeKey": "free",
+            "displayOrder": 6
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 103,
+          "stepOrder": 4,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 2",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 35.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 104,
+          "stepOrder": 5,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "warmup",
+            "displayOrder": 1
+          },
+          "childStepId": null,
+          "description": "warmup rep 3",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 16.666666666666668,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 6,
+            "strokeTypeKey": "free",
+            "displayOrder": 6
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        }
+      ]
+    },
+    {
+      "segmentOrder": 2,
+      "sportType": {
+        "sportTypeId": 4,
+        "sportTypeKey": "swimming",
+        "displayOrder": 3
+      },
+      "poolLengthUnit": null,
+      "poolLength": null,
+      "avgTrainingSpeed": null,
+      "estimatedDurationInSecs": null,
+      "estimatedDistanceInMeters": 100.0,
+      "estimatedDistanceUnit": null,
+      "estimateType": null,
+      "description": null,
+      "workoutSteps": [
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 200,
+          "stepOrder": 1,
+          "stepType": {
+            "stepTypeId": 8,
+            "stepTypeKey": "main",
+            "displayOrder": 8
+          },
+          "childStepId": null,
+          "description": "main rep 1",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 4,
+            "strokeTypeKey": "breast",
+            "displayOrder": 4
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 201,
+          "stepOrder": 2,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 1",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 202,
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 8,
+            "stepTypeKey": "main",
+            "displayOrder": 8
+          },
+          "childStepId": null,
+          "description": "main rep 2",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 4,
+            "strokeTypeKey": "breast",
+            "displayOrder": 4
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 203,
+          "stepOrder": 4,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 2",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 204,
+          "stepOrder": 5,
+          "stepType": {
+            "stepTypeId": 8,
+            "stepTypeKey": "main",
+            "displayOrder": 8
+          },
+          "childStepId": null,
+          "description": "main rep 3",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 4,
+            "strokeTypeKey": "breast",
+            "displayOrder": 4
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 205,
+          "stepOrder": 6,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 3",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 206,
+          "stepOrder": 7,
+          "stepType": {
+            "stepTypeId": 8,
+            "stepTypeKey": "main",
+            "displayOrder": 8
+          },
+          "childStepId": null,
+          "description": "main rep 4",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 4,
+            "strokeTypeKey": "breast",
+            "displayOrder": 4
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 207,
+          "stepOrder": 8,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 4",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 208,
+          "stepOrder": 9,
+          "stepType": {
+            "stepTypeId": 8,
+            "stepTypeKey": "main",
+            "displayOrder": 8
+          },
+          "childStepId": null,
+          "description": "main rep 5",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 20.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 4,
+            "strokeTypeKey": "breast",
+            "displayOrder": 4
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        }
+      ]
+    },
+    {
+      "segmentOrder": 3,
+      "sportType": {
+        "sportTypeId": 4,
+        "sportTypeKey": "swimming",
+        "displayOrder": 3
+      },
+      "poolLengthUnit": null,
+      "poolLength": null,
+      "avgTrainingSpeed": null,
+      "estimatedDurationInSecs": null,
+      "estimatedDistanceInMeters": 50.0,
+      "estimatedDistanceUnit": null,
+      "estimateType": null,
+      "description": null,
+      "workoutSteps": [
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 300,
+          "stepOrder": 1,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "cooldown",
+            "displayOrder": 2
+          },
+          "childStepId": null,
+          "description": "cooldown rep 1",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 25.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 3,
+            "strokeTypeKey": "back",
+            "displayOrder": 3
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 301,
+          "stepOrder": 2,
+          "stepType": {
+            "stepTypeId": 5,
+            "stepTypeKey": "rest",
+            "displayOrder": 5
+          },
+          "childStepId": null,
+          "description": "Rest after rep 1",
+          "endCondition": {
+            "conditionTypeId": 8,
+            "conditionTypeKey": "fixed.rest",
+            "displayOrder": 8,
+            "displayable": true
+          },
+          "endConditionValue": 50.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 0,
+            "strokeTypeKey": null,
+            "displayOrder": 0
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 302,
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "cooldown",
+            "displayOrder": 2
+          },
+          "childStepId": null,
+          "description": "cooldown rep 2",
+          "endCondition": {
+            "conditionTypeId": 1,
+            "conditionTypeKey": "distance",
+            "displayOrder": 1,
+            "displayable": true
+          },
+          "endConditionValue": 25.0,
+          "preferredEndConditionUnit": {
+            "unitId": 1,
+            "unitKey": "meter",
+            "factor": 100.0
+          },
+          "endConditionCompare": "gt",
+          "strokeType": {
+            "strokeTypeId": 3,
+            "strokeTypeKey": "back",
+            "displayOrder": 3
+          },
+          "equipmentType": {
+            "equipmentTypeId": 0,
+            "equipmentTypeKey": null,
+            "displayOrder": 0
+          },
+          "weightValue": -1.0,
+          "weightUnit": {
+            "unitId": 8,
+            "unitKey": "kilogram",
+            "factor": 1000.0
+          }
+        }
+      ]
+    }
+  ],
+  "poolLength": 25.0,
+  "poolLengthUnit": {
+    "unitId": 1,
+    "unitKey": "meter",
+    "factor": 100.0
+  },
+  "locale": null,
+  "workoutProvider": null,
+  "workoutSourceId": null,
+  "uploadTimestamp": null,
+  "atpPlanId": null,
+  "consumer": null,
+  "consumerName": null,
+  "consumerImageURL": null,
+  "consumerWebsiteURL": null,
+  "workoutNameI18nKey": null,
+  "descriptionI18nKey": null,
+  "avgTrainingSpeed": 0.8333,
+  "estimateType": "TIME_ESTIMATED",
+  "estimatedDistanceUnit": {
+    "unitId": null,
+    "unitKey": null,
+    "factor": null
+  },
+  "workoutThumbnailUrl": null,
+  "isSessionTransitionEnabled": null,
+  "shared": false
+}
