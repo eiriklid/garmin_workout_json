@@ -18,7 +18,7 @@ mod tests {
 
     use super::*;
 
-#[test]
+    #[test]
     fn test_deserialize_step() {
         let json_str = r#"
           {

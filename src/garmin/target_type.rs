@@ -24,7 +24,7 @@ mod tests {
           {
             "workoutTargetTypeId": 1,
             "workoutTargetTypeKey": "no.target",
-            "displayOrder": 1,
+            "displayOrder": 1
           }
         "#;
         let json: TargetType = serde_json::from_str(json_str).unwrap();
@@ -41,7 +41,7 @@ mod tests {
             display_order: 1,
         };
         let json_str = serde_json::to_string(&step).unwrap();
-        let expected = r#"{"workoutTargetTypeId":1,"workoutTargetTypeKey":"no.target","displayOrder":1,"displayable":true}"#;
+        let expected = r#"{"workoutTargetTypeId":1,"workoutTargetTypeKey":"no.target","displayOrder":1}"#;
         assert_eq!(json_str, expected);
     }
 }
