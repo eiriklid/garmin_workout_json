@@ -15,9 +15,10 @@ pub struct StepType {
 
 #[cfg(test)]
 mod tests {
-    use crate::steps::StepType;
 
-    #[test]
+    use super::*;
+
+#[test]
     fn test_deserialize_step() {
         let json_str = r#"
           {          

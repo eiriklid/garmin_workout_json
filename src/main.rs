@@ -1,7 +1,6 @@
-// mod cursor_suggestion;
-#[path="./garmin/steps.rs"]
-mod steps;
+mod garmin;
 
 fn main() {
     println!("Hello, world!");
+
 }
