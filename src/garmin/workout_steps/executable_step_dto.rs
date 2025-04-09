@@ -1,14 +1,14 @@
 use serde::{Deserialize, Serialize};
-use crate::garmin::end_condition::EndCondition;
-use crate::garmin::preferred_end_condition_unit::PreferredEndConditionUnit;
-use crate::garmin::step_type::StepType;
-use crate::garmin::stroke_type::StrokeType;
-use crate::garmin::target_type::TargetType;
+use crate::garmin::workout_steps::end_condition::EndCondition;
+use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
+use crate::garmin::workout_steps::step_type::StepType;
+use crate::garmin::workout_steps::stroke_type::StrokeType;
+use crate::garmin::workout_steps::target_type::TargetType;
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
 #[serde(rename_all = "camelCase")]
-struct ExecutableStepDTO{
+pub struct ExecutableStepDTO{
     step_id: u64,
     step_order: u8,
     step_type: StepType,
