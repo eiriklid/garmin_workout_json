@@ -8,9 +8,9 @@ pub struct StrokeType {
         - Enum of type keys
         - Derive id and display_order based on key
      */
-    stroke_type_id: u8,
-    stroke_type_key: Option<String>,
-    display_order: u8
+    pub stroke_type_id: u8,
+    pub stroke_type_key: Option<String>,
+    pub display_order: u8
 }
 
 #[cfg(test)]

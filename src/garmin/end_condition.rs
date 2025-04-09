@@ -9,10 +9,10 @@ pub struct EndCondition {
         - Enum of type keys
         - Derive id and display_order based on key
      */
-    condition_type_id: u8,
-    condition_type_key: String,
-    display_order: u8,
-    displayable: bool,
+    pub condition_type_id: u8,
+    pub condition_type_key: String,
+    pub display_order: u8,
+    pub displayable: bool,
 }
 
 #[cfg(test)]

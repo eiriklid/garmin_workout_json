@@ -8,9 +8,9 @@ pub struct StepType {
         - Enum of type keys
         - Derive id and display_order based on key
      */
-    step_type_id: u8,
-    step_type_key: String,
-    display_order: u8
+    pub step_type_id: u8,
+    pub step_type_key: String,
+    pub display_order: u8
 }
 
 #[cfg(test)]

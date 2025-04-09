@@ -8,9 +8,19 @@ pub struct TargetType {
         - Enum of type keys
         - Derive id and display_order based on key
      */
-    workout_target_type_id: u8,
+    pub workout_target_type_id: u8,
     workout_target_type_key: String,
     display_order: u8,
+}
+
+impl Default for TargetType {
+    fn default() -> Self {
+        TargetType {
+            workout_target_type_id: 1,
+            workout_target_type_key: "no.target".to_string(),
+            display_order: 1,
+        }
+    }
 }
 
 #[cfg(test)]

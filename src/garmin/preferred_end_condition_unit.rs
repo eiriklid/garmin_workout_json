@@ -13,6 +13,16 @@ pub struct PreferredEndConditionUnit {
     factor: f32
 }
 
+impl Default for PreferredEndConditionUnit {
+    fn default() -> Self {
+        PreferredEndConditionUnit{
+            unit_id: 1,
+            unit_key: "meter".to_string(),
+            factor: 100.0
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
 
