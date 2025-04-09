@@ -48,62 +48,41 @@ impl ExecutableStepDTO {
                end_condition_value: f32,
                target_type: Option<TargetType>,
                stroke_type: StrokeType) -> Self {
-        Self::create_from_definition(
+        let target_type_defined = match target_type {
+            None => {TargetType::default()},
+            Some(target_type2) => { target_type2 }
+        };
+
+        ExecutableStepDTO{
             step_id,
             step_order,
             step_type,
+            child_step_id: None,
             description,
             end_condition,
             end_condition_value,
-            target_type,
-            stroke_type
-        )
-    }
-    pub fn create_from_definition(
-        step_id: u64,
-        step_order: u8,
-        step_type: StepType,
-        description: Option<String>,
-        end_condition: EndCondition,
-        end_condition_value: f32,
-        target_type: Option<TargetType>,
-        stroke_type: StrokeType
-    ) -> ExecutableStepDTO {
-        let target_type_defined = match target_type {
-            None => {TargetType::default()},
-            Some(target_type) => {target_type}
-        };
-
-      ExecutableStepDTO{
-          step_id: step_id,
-          step_order: step_order,
-          step_type: step_type,
-          child_step_id: None,
-          description: description,
-          end_condition: end_condition,
-          end_condition_value: end_condition_value,
-          preferred_end_condition_unit: PreferredEndConditionUnit::default(),
-          end_condition_compare: None,
-          target_type: target_type_defined,
-          target_value_one: None,
-          target_value_two: None,
-          target_value_unit: None,
-          zone_number: None,
-          secondary_target_type: None,
-          secondary_target_value_one: None,
-          secondary_target_value_two: None,
-          secondary_target_value_unit: None,
-          secondary_zone_number: None,
-          end_condition_zone: None,
-          stroke_type: stroke_type,
-          equipment_type: EquipmentType::default(),
-          category: None,
-          exercise_name: None,
-          workout_provider: None,
-          provider_exercise_source_id: None,
-          weight_value: None,
-          weight_unit: None
-      }
+            preferred_end_condition_unit: PreferredEndConditionUnit::default(),
+            end_condition_compare: None,
+            target_type: target_type_defined,
+            target_value_one: None,
+            target_value_two: None,
+            target_value_unit: None,
+            zone_number: None,
+            secondary_target_type: None,
+            secondary_target_value_one: None,
+            secondary_target_value_two: None,
+            secondary_target_value_unit: None,
+            secondary_zone_number: None,
+            end_condition_zone: None,
+            stroke_type,
+            equipment_type: EquipmentType::default(),
+            category: None,
+            exercise_name: None,
+            workout_provider: None,
+            provider_exercise_source_id: None,
+            weight_value: None,
+            weight_unit: None
+        }
     }
 }
 
