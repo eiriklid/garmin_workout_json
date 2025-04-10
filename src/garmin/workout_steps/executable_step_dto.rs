@@ -12,7 +12,7 @@ pub struct ExecutableStepDTO{
     step_id: u64,
     step_order: u8,
     step_type: StepType,
-    child_step_id: Option<u8>,
+    pub child_step_id: Option<u8>,
     description: Option<String>,
     end_condition: EndCondition,
     end_condition_value: f32,
@@ -40,9 +40,14 @@ pub struct ExecutableStepDTO{
 }
 
 impl ExecutableStepDTO {
+    /*
+    Todo:
+        - Create utility function to create rest step
+     */
     pub fn new(step_id: u64,
                step_order: u8,
                step_type: StepType,
+               child_step_id: Option<u8>,
                description: Option<String>,
                end_condition: EndCondition,
                end_condition_value: f32,
@@ -57,7 +62,7 @@ impl ExecutableStepDTO {
             step_id,
             step_order,
             step_type,
-            child_step_id: None,
+            child_step_id,
             description,
             end_condition,
             end_condition_value,
@@ -189,6 +194,7 @@ mod tests {
                 display_order: 1
             },
             None,
+            None,
             EndCondition{
                 condition_type_id: 3,
                 condition_type_key: "distance".to_string(),
@@ -218,6 +224,7 @@ mod tests {
                 step_type_key: "warmup".to_string(),
                 display_order: 1
             },
+            None,
             None,
             EndCondition{
                 condition_type_id: 3,

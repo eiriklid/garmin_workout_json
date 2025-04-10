@@ -10,7 +10,9 @@ use crate::garmin::workout_steps::step_type::StepType;
 struct RepeatGroupDTO {
     /*
     Todo:
-        - Test
+        - Test serialize, deserialize
+        - Set child_step_id for entries in workout_steps
+        -
      */
     step_id: u64,
     step_order: u8,
@@ -32,7 +34,7 @@ impl RepeatGroupDTO {
         step_order: u8,
         child_step_id: u8,
         number_of_iterations: u8,
-        workout_steps: Vec<ExecutableStepDTO>
+        workout_steps: Vec<ExecutableStepDTO> // Vec<WorkoutStep>
     ) -> Self {
         RepeatGroupDTO {
             step_id,
@@ -59,4 +61,54 @@ impl RepeatGroupDTO {
             smart_repeat: false,
         }
         }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::garmin::workout_steps::stroke_type::StrokeType;
+    use super::*;
+
+    #[test]
+    fn test_build_repeat_group_dto() {
+        let workout_step = ExecutableStepDTO::new(
+            9615001364,
+            3,
+            StepType{
+                step_type_id: 1,
+                step_type_key: "warmup".to_string(),
+                display_order: 1
+            },
+            Some(1),
+            None,
+            EndCondition{
+                condition_type_id: 3,
+                condition_type_key: "distance".to_string(),
+                display_order: 3,
+                displayable: true
+            },
+            400.0,
+            None,
+            StrokeType{
+                stroke_type_id: 6,
+                stroke_type_key: Some("free".to_string()),
+                display_order: 6
+            }
+        );
+
+
+        let step = RepeatGroupDTO::new(
+            9615001366,
+            3,
+            1,
+            8,
+            vec![workout_step]
+        );
+        assert_eq!(step.step_id, 9615001366);
+        assert_eq!(step.step_order, 3);
+        assert_eq!(step.child_step_id, 1);
+        assert_eq!(step.number_of_iterations, 8);
+
+        //Check that first entry workout_steps have child_step_id
+        assert_eq!(step.workout_steps[0].child_step_id, Some(1));
+    }
 }
