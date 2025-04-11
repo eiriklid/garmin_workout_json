@@ -11,7 +11,6 @@ struct RepeatGroupDTO {
     /*
     Todo:
         - Test serialize, deserialize
-        - Set child_step_id for entries in workout_steps
         -
      */
     step_id: u64,
@@ -34,8 +33,13 @@ impl RepeatGroupDTO {
         step_order: u8,
         child_step_id: u8,
         number_of_iterations: u8,
-        workout_steps: Vec<ExecutableStepDTO> // Vec<WorkoutStep>
+        mut workout_steps: Vec<ExecutableStepDTO> // Vec<WorkoutStep>
     ) -> Self {
+
+        // Set child_step_id in workout steps
+        for i in workout_steps.iter_mut(){ i.child_step_id = Some(child_step_id)};
+        
+
         RepeatGroupDTO {
             step_id,
             step_order,
@@ -78,7 +82,7 @@ mod tests {
                 step_type_key: "warmup".to_string(),
                 display_order: 1
             },
-            Some(1),
+            None,
             None,
             EndCondition{
                 condition_type_id: 3,
@@ -108,7 +112,7 @@ mod tests {
         assert_eq!(step.child_step_id, 1);
         assert_eq!(step.number_of_iterations, 8);
 
-        //Check that first entry workout_steps have child_step_id
+        //Check that first entry workout_steps have child_step_id set
         assert_eq!(step.workout_steps[0].child_step_id, Some(1));
     }
 }
