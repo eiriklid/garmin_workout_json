@@ -8,10 +8,6 @@ use crate::garmin::workout_steps::step_type::StepType;
 #[serde(tag = "type")]
 #[serde(rename_all = "camelCase")]
 struct RepeatGroupDTO {
-    /*
-    Todo:
-        - Test deserialize
-     */
     step_id: u64,
     step_order: u8,
     step_type: StepType,
@@ -315,5 +311,152 @@ mod tests {
         "#.chars().filter(|c| !c.is_whitespace()).collect::<String>();
 
         assert_eq!(serialized, expected_json);
+    }
+
+    #[test]
+    fn test_deserialize() {
+        let json = r#"{
+          "type": "RepeatGroupDTO",
+          "stepId": 9615001366,
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 6,
+            "stepTypeKey": "repeat",
+            "displayOrder": 6
+          },
+          "childStepId": 1,
+          "numberOfIterations": 8,
+          "workoutSteps": [
+            {
+              "type": "ExecutableStepDTO",
+              "stepId": 9615001367,
+              "stepOrder": 4,
+              "stepType": {
+                "stepTypeId": 8,
+                "stepTypeKey": "main",
+                "displayOrder": 8
+              },
+              "childStepId": 1,
+              "description": null,
+              "endCondition": {
+                "conditionTypeId": 3,
+                "conditionTypeKey": "distance",
+                "displayOrder": 3,
+                "displayable": true
+              },
+              "endConditionValue": 100.0,
+              "preferredEndConditionUnit": {
+                "unitId": 1,
+                "unitKey": "meter",
+                "factor": 100.0
+              },
+              "endConditionCompare": null,
+              "targetType": {
+                "workoutTargetTypeId": 1,
+                "workoutTargetTypeKey": "no.target",
+                "displayOrder": 1
+              },
+              "targetValueOne": null,
+              "targetValueTwo": null,
+              "targetValueUnit": null,
+              "zoneNumber": null,
+              "secondaryTargetType": null,
+              "secondaryTargetValueOne": null,
+              "secondaryTargetValueTwo": null,
+              "secondaryTargetValueUnit": null,
+              "secondaryZoneNumber": null,
+              "endConditionZone": null,
+              "strokeType": {
+                "strokeTypeId": 6,
+                "strokeTypeKey": "free",
+                "displayOrder": 6
+              },
+              "equipmentType": {
+                "equipmentTypeId": 0,
+                "equipmentTypeKey": null,
+                "displayOrder": 0
+              },
+              "category": null,
+              "exerciseName": null,
+              "workoutProvider": null,
+              "providerExerciseSourceId": null,
+              "weightValue": null,
+              "weightUnit": null
+            },
+            {
+              "type": "ExecutableStepDTO",
+              "stepId": 9615001368,
+              "stepOrder": 5,
+              "stepType": {
+                "stepTypeId": 5,
+                "stepTypeKey": "rest",
+                "displayOrder": 5
+              },
+              "childStepId": 1,
+              "description": null,
+              "endCondition": {
+                "conditionTypeId": 8,
+                "conditionTypeKey": "fixed.rest",
+                "displayOrder": 8,
+                "displayable": true
+              },
+              "endConditionValue": 15.0,
+              "preferredEndConditionUnit": null,
+              "endConditionCompare": null,
+              "targetType": {
+                "workoutTargetTypeId": 1,
+                "workoutTargetTypeKey": "no.target",
+                "displayOrder": 1
+              },
+              "targetValueOne": null,
+              "targetValueTwo": null,
+              "targetValueUnit": null,
+              "zoneNumber": null,
+              "secondaryTargetType": null,
+              "secondaryTargetValueOne": null,
+              "secondaryTargetValueTwo": null,
+              "secondaryTargetValueUnit": null,
+              "secondaryZoneNumber": null,
+              "endConditionZone": null,
+              "strokeType": {
+                "strokeTypeId": 0,
+                "strokeTypeKey": null,
+                "displayOrder": 0
+              },
+              "equipmentType": {
+                "equipmentTypeId": 0,
+                "equipmentTypeKey": null,
+                "displayOrder": 0
+              },
+              "category": null,
+              "exerciseName": null,
+              "workoutProvider": null,
+              "providerExerciseSourceId": null,
+              "weightValue": null,
+              "weightUnit": null
+            }
+          ],
+          "endConditionValue": 8.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": null,
+          "endCondition": {
+            "conditionTypeId": 7,
+            "conditionTypeKey": "iterations",
+            "displayOrder": 7,
+            "displayable": false
+          },
+          "skipLastRestStep": null,
+          "smartRepeat": false
+        }
+        "#;
+
+        let result: RepeatGroupDTO = serde_json::from_str(&json).unwrap();
+
+        assert_eq!(result.step_id, 9615001366);
+
+        assert_eq!(result.workout_steps.len(), 2);
+        assert_eq!(result.workout_steps[1].child_step_id, Some(1))
+
+
     }
 }
