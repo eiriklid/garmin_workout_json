@@ -65,7 +65,6 @@ impl RepeatGroupDTO {
 #[cfg(test)]
 mod tests {
     use crate::garmin::workout_steps::stroke_type::StrokeType;
-    use crate::garmin::workout_steps::target_type::TargetType;
     use super::*;
 
     #[test]
