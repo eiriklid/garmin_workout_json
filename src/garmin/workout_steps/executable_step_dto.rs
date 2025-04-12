@@ -16,7 +16,7 @@ pub struct ExecutableStepDTO{
     description: Option<String>,
     end_condition: EndCondition,
     end_condition_value: f32,
-    preferred_end_condition_unit: PreferredEndConditionUnit,
+    preferred_end_condition_unit: Option<PreferredEndConditionUnit>,
     end_condition_compare: Option<bool>, // Unsure which type this field have
     target_type: TargetType,
     target_value_one: Option<f32>,
@@ -52,10 +52,16 @@ impl ExecutableStepDTO {
                end_condition: EndCondition,
                end_condition_value: f32,
                target_type: Option<TargetType>,
-               stroke_type: StrokeType) -> Self {
+               stroke_type: StrokeType,
+               is_rest_step: bool) -> Self {
         let target_type_defined = match target_type {
             None => {TargetType::default()},
             Some(target_type2) => { target_type2 }
+        };
+
+        let preferred_end_condition_unit = match is_rest_step {
+            true => None,
+            false => Some(PreferredEndConditionUnit::default())
         };
 
         ExecutableStepDTO{
@@ -66,7 +72,7 @@ impl ExecutableStepDTO {
             description,
             end_condition,
             end_condition_value,
-            preferred_end_condition_unit: PreferredEndConditionUnit::default(),
+            preferred_end_condition_unit: preferred_end_condition_unit,
             end_condition_compare: None,
             target_type: target_type_defined,
             target_value_one: None,
@@ -207,7 +213,8 @@ mod tests {
                 stroke_type_id: 6,
                 stroke_type_key: Some("free".to_string()),
                 display_order: 6
-            }
+            },
+            false
         );
         assert_eq!(object.step_id, 9615001364);
         assert_eq!(object.step_order, 1);
@@ -238,7 +245,8 @@ mod tests {
                 stroke_type_id: 6,
                 stroke_type_key: Some("free".to_string()),
                 display_order: 6
-            }
+            },
+            false
         );
 
         let result = serde_json::to_string(&object).unwrap();
