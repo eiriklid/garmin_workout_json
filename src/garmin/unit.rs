@@ -5,5 +5,5 @@ use serde::{Deserialize, Serialize};
 pub struct Unit{
     unit_id: Option<u8>,
     unit_key: Option<String>,
-    factor: Option<u8>
+    factor: Option<f32>
 }

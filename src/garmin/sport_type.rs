@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct SportType {
+pub struct SportType {
     sport_type_id: u8,
     sport_type_key: String,
     display_order: u8, // Note that this is not equal to sport_type_id in this case
