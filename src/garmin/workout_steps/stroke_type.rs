@@ -15,9 +15,7 @@ pub enum Stroke{
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StrokeType {
-    pub stroke_type_id: u8,
     pub stroke_type_key: Option<Stroke>,
-    pub display_order: u8
 }
 
 
@@ -45,9 +43,9 @@ impl Serialize for StrokeType {
     {
         // 3 is the number of fields in the struct.
         let mut state = serializer.serialize_struct("StrokeType", 3)?;
-        state.serialize_field("strokeTypeId", &self.stroke_type_id)?;
+        state.serialize_field("strokeTypeId", &self.stroke_type_id())?;
         state.serialize_field("strokeTypeKey", &self.stroke_type_key)?;
-        state.serialize_field("displayOrder", &self.display_order)?;
+        state.serialize_field("displayOrder", &self.display_order())?;
         state.end()
     }
 }
@@ -66,17 +64,15 @@ mod tests {
           }
         "#;
         let json: StrokeType = serde_json::from_str(json_str).unwrap();
-        assert_eq!(json.stroke_type_id, 6);
+        assert_eq!(json.stroke_type_id(), 6);
         assert_eq!(json.stroke_type_key, Some(Stroke::Free));
-        assert_eq!(json.display_order, 6);
+        assert_eq!(json.display_order(), 6);
     }
 
     #[test]
     fn test_serialize_stroke() {
         let stroke = StrokeType {
-            stroke_type_id: 7,
             stroke_type_key: Some(Stroke::IndividualMedley),
-            display_order: 7
         };
         let json_str = serde_json::to_string(&stroke).unwrap();
         let expected = r#"{"strokeTypeId":7,"strokeTypeKey":"individual_medley","displayOrder":7}"#;
@@ -93,17 +89,15 @@ mod tests {
           }
         "#;
         let json: StrokeType = serde_json::from_str(json_str).unwrap();
-        assert_eq!(json.stroke_type_id, 0);
+        assert_eq!(json.stroke_type_id(), 0);
         assert_eq!(json.stroke_type_key, None);
-        assert_eq!(json.display_order, 0);
+        assert_eq!(json.display_order(), 0);
     }
 
     #[test]
     fn test_serialize_null() {
         let resting_stroke = StrokeType {
-            stroke_type_id : 0,
             stroke_type_key: None,
-            display_order: 0
         };
         let json_str = serde_json::to_string(&resting_stroke).unwrap();
         let expected = r#"{"strokeTypeId":0,"strokeTypeKey":null,"displayOrder":0}"#;

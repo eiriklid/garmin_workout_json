@@ -27,6 +27,24 @@ pub struct EndCondition {
     pub displayable: bool,
 }
 
+
+impl EndCondition {
+    pub fn condition_type_id(&self) -> u8 {
+        match self.condition_type_key {
+            Condition::LapButton => 1,
+            Condition::Time => 2,
+            Condition::Distance => 3,
+            Condition::Iterations => 7,
+            Condition::FixedRest => 8,
+        }
+    }
+
+    pub fn display_order(&self) -> u8 {
+        self.condition_type_id()
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;

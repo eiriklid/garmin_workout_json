@@ -212,9 +212,7 @@ mod tests {
             400.0,
             None,
             StrokeType{
-                stroke_type_id: 6,
                 stroke_type_key: Some(Stroke::Free),
-                display_order: 6
             },
             false
         );
@@ -244,9 +242,7 @@ mod tests {
             400.0,
             None,
             StrokeType{
-                stroke_type_id: 6,
                 stroke_type_key: Some(Stroke::Free),
-                display_order: 6
             },
             false
         );
