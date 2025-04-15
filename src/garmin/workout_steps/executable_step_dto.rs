@@ -215,7 +215,7 @@ mod tests {
         );
         assert_eq!(object.step_id, 9615001364);
         assert_eq!(object.step_order, 1);
-        assert_eq!(object.target_type.workout_target_type_id, 1)
+        assert_eq!(object.target_type.workout_target_type_id(), 1)
     }
 
     #[test]
