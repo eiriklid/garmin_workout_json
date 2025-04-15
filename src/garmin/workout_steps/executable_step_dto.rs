@@ -120,6 +120,7 @@ impl Default for EquipmentType {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::garmin::workout_steps::end_condition::Condition;
     use crate::garmin::workout_steps::stroke_type::Stroke;
 
     #[test]
@@ -204,7 +205,7 @@ mod tests {
             None,
             EndCondition{
                 condition_type_id: 3,
-                condition_type_key: "distance".to_string(),
+                condition_type_key: Condition::Distance,
                 display_order: 3,
                 displayable: true
             },
@@ -236,7 +237,7 @@ mod tests {
             None,
             EndCondition{
                 condition_type_id: 3,
-                condition_type_key: "distance".to_string(),
+                condition_type_key: Condition::Distance,
                 display_order: 3,
                 displayable: true
             },

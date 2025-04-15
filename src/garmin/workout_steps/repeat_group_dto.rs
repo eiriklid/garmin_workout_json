@@ -1,4 +1,4 @@
-use crate::garmin::workout_steps::end_condition::EndCondition;
+use crate::garmin::workout_steps::end_condition::{Condition, EndCondition};
 use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
 use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
 use crate::garmin::workout_steps::step_type::StepType;
@@ -52,7 +52,7 @@ impl RepeatGroupDTO {
             end_condition_compare: None,
             end_condition: EndCondition{
                 condition_type_id: 7,
-                condition_type_key: "iterations".to_string(),
+                condition_type_key: Condition::Iterations,
                 display_order: 7,
                 displayable: false,
             },
@@ -81,7 +81,7 @@ mod tests {
             None,
             EndCondition{
                 condition_type_id: 3,
-                condition_type_key: "distance".to_string(),
+                condition_type_key: Condition::Distance,
                 display_order: 3,
                 displayable: true
             },
@@ -126,7 +126,7 @@ mod tests {
             None,
             EndCondition{
                 condition_type_id: 3,
-                condition_type_key: "distance".to_string(),
+                condition_type_key: Condition::Distance,
                 display_order: 3,
                 displayable: true
             },
@@ -151,7 +151,7 @@ mod tests {
              None,
              EndCondition{
                  condition_type_id: 8,
-                 condition_type_key: "fixed.rest".to_string(),
+                 condition_type_key: Condition::FixedRest,
                  display_order: 8,
                  displayable: true,
              },

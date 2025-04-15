@@ -1,7 +1,7 @@
 use serde::Serialize;
+use serde_json::Value;
 use std::fs::File;
 use std::io::{self, Write};
-use serde_json::Value;
 
 #[derive(Serialize)]
 struct Workout {
@@ -229,7 +229,7 @@ impl WorkoutBuilder {
             description: None,
             endCondition: EndCondition { 
                 conditionTypeId: 3, 
-                conditionTypeKey: "distance".to_string(), 
+                conditionTypeKey: Condition::Distance,
                 displayOrder: 3, 
                 displayable: true 
             },
@@ -342,7 +342,7 @@ impl WorkoutBuilder {
             description: None,
             endCondition: EndCondition { 
                 conditionTypeId: 3, 
-                conditionTypeKey: "distance".to_string(), 
+                conditionTypeKey: Condition::Distance,
                 displayOrder: 3, 
                 displayable: true 
             },
@@ -530,7 +530,7 @@ impl WorkoutBuilder {
             description: None,
             endCondition: EndCondition { 
                 conditionTypeId: 3, 
-                conditionTypeKey: "distance".to_string(), 
+                conditionTypeKey: Condition::Distance,
                 displayOrder: 3, 
                 displayable: true 
             },
