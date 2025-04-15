@@ -1,22 +1,9 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct StrokeType {
-    /*
-    Todo:
-        - Enum of type keys
-        - Derive id and display_order based on key
-     */
-    pub stroke_type_id: u8,
-    pub stroke_type_key: Option<Stroke>,
-    pub display_order: u8
-}
+use serde::ser::SerializeStruct;
+use serde::{Deserialize, Serialize, Serializer};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
 #[serde(rename_all="snake_case")]
 pub enum Stroke{
-    None,
     Free,
     Breast,
     Back,
@@ -24,6 +11,46 @@ pub enum Stroke{
     IndividualMedley
 }
 
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct StrokeType {
+    pub stroke_type_id: u8,
+    pub stroke_type_key: Option<Stroke>,
+    pub display_order: u8
+}
+
+
+impl StrokeType {
+    pub fn stroke_type_id(&self) -> u8 {
+        match self.stroke_type_key {
+            Some(Stroke::Breast) => 2,      // Todo: correct
+            Some(Stroke::Back) => 3,        // Todo: correct
+            Some(Stroke::Butterfly) => 4,   // Todo: correct
+            Some(Stroke::Free) => 6,
+            Some(Stroke::IndividualMedley) => 7,
+            None => 0,
+        }
+    }
+
+    pub fn display_order(&self) -> u8 {
+        self.stroke_type_id()
+    }
+}
+
+impl Serialize for StrokeType {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        // 3 is the number of fields in the struct.
+        let mut state = serializer.serialize_struct("StrokeType", 3)?;
+        state.serialize_field("strokeTypeId", &self.stroke_type_id)?;
+        state.serialize_field("strokeTypeKey", &self.stroke_type_key)?;
+        state.serialize_field("displayOrder", &self.display_order)?;
+        state.end()
+    }
+}
 
 #[cfg(test)]
 mod tests {
