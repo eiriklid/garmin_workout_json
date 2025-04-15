@@ -1,6 +1,6 @@
 use crate::garmin::workout_steps::end_condition::EndCondition;
 use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
-use crate::garmin::workout_steps::step_type::StepType;
+use crate::garmin::workout_steps::step_type::{Step, StepType};
 use crate::garmin::workout_steps::stroke_type::StrokeType;
 use crate::garmin::workout_steps::target_type::TargetType;
 use serde::{Deserialize, Serialize};
@@ -94,6 +94,27 @@ impl ExecutableStepDTO {
             weight_value: None,
             weight_unit: None
         }
+    }
+
+    pub fn rest_step(step_id: u64,
+                     step_order: u8,
+                     child_step_id: Option<u8>,
+                     description: Option<String>,
+                     end_condition: EndCondition,
+                     end_condition_value: f32) -> Self {
+        // Todo: test
+        Self::new(
+            step_id,
+            step_order,
+            StepType{step_type_key: Step::Rest},
+            child_step_id,
+            description,
+            end_condition, // Todo: Check for correctness
+            end_condition_value,
+            Some(TargetType::default()),
+            StrokeType{stroke_type_key: None},
+            true
+        )
     }
 }
 
