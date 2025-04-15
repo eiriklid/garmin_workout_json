@@ -56,7 +56,7 @@ impl ExecutableStepDTO {
                is_rest_step: bool) -> Self {
         let target_type_defined = match target_type {
             None => {TargetType::default()},
-            Some(target_type2) => { target_type2 }
+            Some(target_type) => { target_type }
         };
 
         let preferred_end_condition_unit = match is_rest_step {
@@ -121,6 +121,7 @@ impl Default for EquipmentType {
 mod tests {
     use super::*;
     use crate::garmin::workout_steps::end_condition::Condition;
+    use crate::garmin::workout_steps::step_type::Step;
     use crate::garmin::workout_steps::stroke_type::Stroke;
 
     #[test]
@@ -197,9 +198,7 @@ mod tests {
             9615001364,
             1,
             StepType{
-                step_type_id: 1,
-                step_type_key: "warmup".to_string(),
-                display_order: 1
+                step_type_key: Step::Warmup,
             },
             None,
             None,
@@ -225,9 +224,7 @@ mod tests {
             9615001364,
             1,
             StepType{
-                step_type_id: 1,
-                step_type_key: "warmup".to_string(),
-                display_order: 1
+                step_type_key: Step::Warmup,
             },
             None,
             None,

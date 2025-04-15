@@ -11,10 +11,6 @@ mod repeat_group_dto;
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum WorkoutStep {
-    /*
-    Todo:
-        - Test
-     */
     ExecutableStepDTO,
     RepeatGroupDTO,
 }

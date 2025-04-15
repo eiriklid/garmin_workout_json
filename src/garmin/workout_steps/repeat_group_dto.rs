@@ -1,7 +1,7 @@
 use crate::garmin::workout_steps::end_condition::{Condition, EndCondition};
 use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
 use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
-use crate::garmin::workout_steps::step_type::StepType;
+use crate::garmin::workout_steps::step_type::{Step, StepType};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
@@ -39,9 +39,7 @@ impl RepeatGroupDTO {
             step_id,
             step_order,
             step_type: StepType{
-                step_type_id: 6,
-                step_type_key: "repeat".to_string(),
-                display_order: 6
+                step_type_key: Step::Repeat,
             },
             child_step_id,
             number_of_iterations,
@@ -63,6 +61,7 @@ impl RepeatGroupDTO {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::garmin::workout_steps::step_type::Step;
     use crate::garmin::workout_steps::stroke_type::{Stroke, StrokeType};
 
     #[test]
@@ -71,9 +70,7 @@ mod tests {
             9615001364,
             3,
             StepType{
-                step_type_id: 1,
-                step_type_key: "warmup".to_string(),
-                display_order: 1
+                step_type_key: Step::Warmup,
             },
             None,
             None,
@@ -112,9 +109,7 @@ mod tests {
             9615001367,
             4,
             StepType{
-                step_type_id: 8,
-                step_type_key: "main".to_string(),
-                display_order: 8
+                step_type_key: Step::Main,
             },
             None,
             None,
@@ -133,9 +128,7 @@ mod tests {
              9615001368,
              5,
              StepType{
-                 step_type_id: 5,
-                 step_type_key: "rest".to_string(),
-                 display_order: 5,
+                 step_type_key: Step::Rest,
              },
              None,
              None,
