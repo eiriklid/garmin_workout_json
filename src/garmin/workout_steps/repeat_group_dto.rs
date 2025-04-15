@@ -1,8 +1,8 @@
-use serde::{Deserialize, Serialize};
 use crate::garmin::workout_steps::end_condition::EndCondition;
 use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
 use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
 use crate::garmin::workout_steps::step_type::StepType;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -64,8 +64,8 @@ impl RepeatGroupDTO {
 
 #[cfg(test)]
 mod tests {
-    use crate::garmin::workout_steps::stroke_type::StrokeType;
     use super::*;
+    use crate::garmin::workout_steps::stroke_type::{Stroke, StrokeType};
 
     #[test]
     fn test_build_repeat_group_dto() {
@@ -89,7 +89,7 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_id: 6,
-                stroke_type_key: Some("free".to_string()),
+                stroke_type_key: Some(Stroke::Free),
                 display_order: 6
             },
             false
@@ -134,7 +134,7 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_id: 6,
-                stroke_type_key: Some("free".to_string()),
+                stroke_type_key: Some(Stroke::Free),
                 display_order: 6
             },
             false

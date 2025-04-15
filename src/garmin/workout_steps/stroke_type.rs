@@ -9,16 +9,27 @@ pub struct StrokeType {
         - Derive id and display_order based on key
      */
     pub stroke_type_id: u8,
-    pub stroke_type_key: Option<String>,
+    pub stroke_type_key: Option<Stroke>,
     pub display_order: u8
 }
 
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
+#[serde(rename_all="snake_case")]
+pub enum Stroke{
+    None,
+    Free,
+    Breast,
+    Back,
+    Butterfly,
+    IndividualMedley
+}
+
+
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
-#[test]
+    #[test]
     fn test_deserialize_stroke() {
         let json_str = r#"
           {
@@ -29,7 +40,7 @@ mod tests {
         "#;
         let json: StrokeType = serde_json::from_str(json_str).unwrap();
         assert_eq!(json.stroke_type_id, 6);
-        assert_eq!(json.stroke_type_key, Some("free".to_string()));
+        assert_eq!(json.stroke_type_key, Some(Stroke::Free));
         assert_eq!(json.display_order, 6);
     }
 
@@ -37,7 +48,7 @@ mod tests {
     fn test_serialize_stroke() {
         let stroke = StrokeType {
             stroke_type_id: 7,
-            stroke_type_key: Some("individual_medley".to_string()),
+            stroke_type_key: Some(Stroke::IndividualMedley),
             display_order: 7
         };
         let json_str = serde_json::to_string(&stroke).unwrap();
