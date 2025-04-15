@@ -1,4 +1,5 @@
-use serde::{Deserialize, Serialize};
+use serde::ser::SerializeStruct;
+use serde::{Deserialize, Serialize, Serializer};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
 #[serde(rename_all = "snake_case")]
@@ -14,16 +15,10 @@ pub enum Condition{
 
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct EndCondition {
-    /*
-    Todo:
-        - Derive id and display_order based on key
-     */
-    pub condition_type_id: u8,
     pub condition_type_key: Condition,
-    pub display_order: u8,
     pub displayable: bool,
 }
 
@@ -45,6 +40,21 @@ impl EndCondition {
 }
 
 
+impl Serialize for EndCondition{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut state = serializer.serialize_struct("EndCondition", 4)?;
+        state.serialize_field("conditionTypeId", &self.condition_type_id())?;
+        state.serialize_field("conditionTypeKey", &self.condition_type_key)?;
+        state.serialize_field("displayOrder", &self.display_order())?;
+        state.serialize_field("displayable", &self.displayable)?;
+        state.end()
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -60,18 +70,16 @@ mod tests {
           }
         "#;
         let json: EndCondition = serde_json::from_str(json_str).unwrap();
-        assert_eq!(json.condition_type_id, 3);
+        assert_eq!(json.condition_type_id(), 3);
         assert_eq!(json.condition_type_key, Condition::Distance);
-        assert_eq!(json.display_order, 3);
+        assert_eq!(json.display_order(), 3);
         assert_eq!(json.displayable, true);
     }
 
     #[test]
     fn test_serialize_step() {
         let step = EndCondition {
-            condition_type_id: 1,
             condition_type_key: Condition::LapButton,
-            display_order: 1,
             displayable: true,
         };
         let json_str = serde_json::to_string(&step).unwrap();

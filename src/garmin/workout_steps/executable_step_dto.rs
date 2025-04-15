@@ -204,9 +204,7 @@ mod tests {
             None,
             None,
             EndCondition{
-                condition_type_id: 3,
                 condition_type_key: Condition::Distance,
-                display_order: 3,
                 displayable: true
             },
             400.0,
@@ -234,9 +232,7 @@ mod tests {
             None,
             None,
             EndCondition{
-                condition_type_id: 3,
                 condition_type_key: Condition::Distance,
-                display_order: 3,
                 displayable: true
             },
             400.0,

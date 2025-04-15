@@ -51,9 +51,7 @@ impl RepeatGroupDTO {
             preferred_end_condition_unit: None,
             end_condition_compare: None,
             end_condition: EndCondition{
-                condition_type_id: 7,
                 condition_type_key: Condition::Iterations,
-                display_order: 7,
                 displayable: false,
             },
             skip_last_rest_step: None,
@@ -80,9 +78,7 @@ mod tests {
             None,
             None,
             EndCondition{
-                condition_type_id: 3,
                 condition_type_key: Condition::Distance,
-                display_order: 3,
                 displayable: true
             },
             400.0,
@@ -123,9 +119,7 @@ mod tests {
             None,
             None,
             EndCondition{
-                condition_type_id: 3,
                 condition_type_key: Condition::Distance,
-                display_order: 3,
                 displayable: true
             },
             100.0,
@@ -146,9 +140,7 @@ mod tests {
              None,
              None,
              EndCondition{
-                 condition_type_id: 8,
                  condition_type_key: Condition::FixedRest,
-                 display_order: 8,
                  displayable: true,
              },
              15.0,
