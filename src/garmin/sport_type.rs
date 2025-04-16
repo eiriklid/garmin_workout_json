@@ -1,11 +1,41 @@
-use serde::{Deserialize, Serialize};
+use serde::ser::SerializeStruct;
+use serde::{Deserialize, Serialize, Serializer};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Sport{
+    Swimming
+}
+
+#[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SportType {
-    sport_type_id: u8,
-    sport_type_key: String,
-    display_order: u8, // Note that this is not equal to sport_type_id in this case
+    sport_type_key: Sport
+}
+
+impl SportType {
+    pub fn sport_type_id(&self) -> u8{
+        match self.sport_type_key {
+            Sport::Swimming => 4,
+        }
+    }
+
+    pub fn display_order(&self) -> u8 {
+        self.sport_type_id() - 1
+    }
+}
+
+impl Serialize for SportType {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut state = serializer.serialize_struct("SportType", 3)?;
+        state.serialize_field("sportTypeId", &self.sport_type_id())?;
+        state.serialize_field("sportTypeKey", &self.sport_type_key)?;
+        state.serialize_field("displayOrder", &self.display_order())?;
+        state.end()
+    }
 }
 
 #[cfg(test)]
@@ -23,9 +53,9 @@ mod tests {
         "#;
         let result: SportType = serde_json::from_str(json).unwrap();
 
-        assert_eq!(result.sport_type_id, 4);
-        assert_eq!(result.sport_type_key, "swimming");
-        assert_eq!(result.display_order, 3);
+        assert_eq!(result.sport_type_id(), 4);
+        assert_eq!(result.sport_type_key, Sport::Swimming);
+        assert_eq!(result.display_order(), 3);
     }
 
     #[test]
@@ -38,7 +68,7 @@ mod tests {
          }
          "#.chars().filter(|c| !c.is_whitespace()).collect::<String>();
 
-        let object = SportType{ sport_type_id: 4, sport_type_key: "swimming".to_string(), display_order: 3 };
+        let object = SportType{sport_type_key: Sport::Swimming};
 
         let json_result = serde_json::to_string(&object).unwrap();
 
