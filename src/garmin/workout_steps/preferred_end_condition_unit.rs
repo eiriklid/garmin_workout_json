@@ -8,7 +8,7 @@ pub enum Unit{
 }
 
 
-#[derive(Deserialize)]
+#[derive(Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PreferredEndConditionUnit {
     unit_key: Unit,

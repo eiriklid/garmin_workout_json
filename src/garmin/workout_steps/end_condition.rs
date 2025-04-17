@@ -15,7 +15,7 @@ pub enum Condition{
 
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct EndCondition {
     pub condition_type_key: Condition,

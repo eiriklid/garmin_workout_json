@@ -3,11 +3,12 @@ use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
 use crate::garmin::workout_steps::preferred_end_condition_unit::PreferredEndConditionUnit;
 use crate::garmin::workout_steps::step_type::{Step, StepType};
 use serde::{Deserialize, Serialize};
+use std::cell::Cell;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename_all = "camelCase")]
-struct RepeatGroupDTO {
+pub struct RepeatGroupDTO {
     step_id: u64,
     step_order: u8,
     step_type: StepType,
@@ -32,7 +33,7 @@ impl RepeatGroupDTO {
     ) -> Self {
 
         // Set child_step_id in workout steps
-        for i in workout_steps.iter_mut(){ i.child_step_id = Some(child_step_id)};
+        for i in workout_steps.iter_mut(){ i.child_step_id = Cell::new(Some(child_step_id))};
         
 
         RepeatGroupDTO {

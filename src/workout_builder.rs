@@ -1,17 +1,20 @@
 use crate::garmin::workout::Workout;
 use crate::garmin::workout_steps::end_condition::{Condition, EndCondition};
-use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
 use crate::garmin::workout_steps::step_type::{Step, StepType};
 use crate::garmin::workout_steps::stroke_type::{Stroke, StrokeType};
 use crate::garmin::workout_steps::WorkoutStep;
+use std::cell::Cell;
 
+use crate::garmin::unit::Unit;
+use crate::garmin::workout_segments::WorkoutSegment;
+use crate::garmin::workout_steps::executable_step_dto::ExecutableStepDTO;
+use crate::garmin::workout_steps::repeat_group_dto::RepeatGroupDTO;
 use crate::garmin::workout_steps::target_type::TargetType;
 use std::io;
 use std::io::Write;
 use std::str::FromStr;
 
-
-const STEP_OFFSET: usize = 9615001364;
+const STEP_OFFSET: u64 = 9615001364;
 
 fn get_input<T: FromStr>(prompt: &str) -> T
 where
@@ -34,24 +37,19 @@ where
     }
 }
 
-
-
 pub struct WorkoutBuilder {}
 
-
 impl WorkoutBuilder {
-
-    pub fn new_workout(&self) -> Workout{
+    pub fn new_workout(&self) -> Workout {
         let workout_name = self.get_workout_name();
 
-        let pool_length = self.get_pool_length();
+        let pool_length: f32 = self.get_pool_length();
 
         let mut workout_steps: Vec<WorkoutStep> = Vec::new();
 
-
-        let step_counter = 1;
+        let step_counter: u64 = 1;
         loop {
-            let workout_step_type = self.get_single_or_repeat();
+            let repeat = self.is_repeat();
 
             let step_type = self.get_step_type();
             let stroke_type = self.get_stroke_type();
@@ -64,63 +62,85 @@ impl WorkoutBuilder {
 
             let target_type = match end_condition.condition_type_key {
                 Condition::LapButton => Some(TargetType::default()),
-                _ => None
+                _ => None,
             };
 
-            let executable_step = match workout_step_type {
-                RepeatGroupDTO => {
-                    let number_of_iterations: u8 = get_input("Number of iterations: ");
-                },
-                ExecutableStepDTO => {
-                    ExecutableStepDTO::new(
-                        step_id: step_counter + STEP_OFFSET,
-                        step_counter,
-                        step_type,
-                    );
-                }
-            };
+            let executable_step = ExecutableStepDTO::new(
+                step_counter + STEP_OFFSET,
+                step_counter as u8,
+                step_type,
+                Cell::new(None),
+                None, //Todo: get description
+                end_condition,
+                end_value,
+                target_type,
+                stroke_type,
+                false,
+            );
+
+            if repeat {
+                let number_of_iterations: u8 = get_input("Number of iterations: ");
+                let repeat_group = RepeatGroupDTO::new(
+                    step_counter + STEP_OFFSET,
+                    step_counter as u8,
+                    1,
+                    number_of_iterations,
+                    vec![
+                        executable_step,
+                        self.get_rest_step(
+                            step_counter + STEP_OFFSET,
+                            step_counter as u8,
+                            Cell::new(Some(2)),
+                        ),
+                    ],
+                );
+                workout_steps.push(WorkoutStep::RepeatGroupDTO(repeat_group))
+            }
 
             let choice = loop {
-                let mut input = get_input("Add another step? (Y/N)");
-                io::stdin().read_line(&mut input).unwrap();
+                let input: String = get_input("Add another step? (Y/N)");
                 match input.trim().to_lowercase().as_str() {
-                    "y" | "yes" => { break true },
-                    "n" | "no" => { break false },
+                    "y" | "yes" => break true,
+                    "n" | "no" => break false,
                     _ => {
                         println!("invalid choice, try again!");
                         continue;
-                    },
+                    }
                 }
             };
-            if choice{
+            if choice {
                 // Add rest_step
-                break
+                continue;
+            } else {
+                break;
             }
         }
 
         Workout::new_swimming_workout(
-            1180301830, // Update
+            1180301830,
             100441918,
             workout_name,
             None,
-
+            "123".to_string(),
+            "456".to_string(),
+            vec![WorkoutSegment::new(workout_steps)],
+            pool_length,
+            Unit::default(),
         )
     }
 
     fn get_workout_name(&self) -> String {
         // Get name of workout
-        let mut workout_name = String::new();
-        io::stdin().read_line(&mut workout_name).unwrap();
-        workout_name.trim().to_string()
+        get_input("Workout name: ")
     }
 
-    fn get_pool_length(&self) -> f64 {
+    fn get_pool_length(&self) -> f32 {
         println!("Select pool length:");
         println!("1) 25m pool");
         println!("2) 17m pool");
         println!("3) Custom length");
         loop {
-            let mut input = get_input("Enter choice (1, 2 or 3):");
+            let input: String = get_input("Enter choice (1, 2 or 3):");
             match input.trim() {
                 "1" => return 25.0,
                 "2" => return 17.0,
@@ -130,22 +150,22 @@ impl WorkoutBuilder {
         }
     }
 
-    fn get_custom_pool_length(&self) -> f64 {
+    fn get_custom_pool_length(&self) -> f32 {
         println!("Select custom pool length ( Between 13 and 200):");
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
         input.trim().parse().unwrap()
     }
 
-    fn get_single_or_repeat(&self) -> WorkoutStep {
+    fn is_repeat(&self) -> bool {
         loop {
             println!("Single or Repeat?");
             println!("1) Single");
             println!("2) Repeat");
-            let mut input = get_input("");
-            match input{
-                "1" => return ExecutableStepDTO,
-                "2" => return RepeatGroupDTO,
+            let input: String = get_input("");
+            match input.trim() {
+                "1" => return false,
+                "2" => return true,
                 _ => continue,
             }
         }
@@ -158,16 +178,17 @@ impl WorkoutBuilder {
             println!("2) Cooldown");
             println!("3) Main");
 
-            let mut input = get_input("");
-            match input.trim() {
-                "1" => return StepType{step_type_key: Step::Warmup},
-                "2" => return StepType{step_type_key: Step::Cooldown},
-                "3" => return StepType{step_type_key: Step::Main},
+            let mut input: String = get_input("");
+            let step_type_key = match input.trim() {
+                "1" => Step::Warmup,
+                "2" => Step::Cooldown,
+                "3" => Step::Main,
                 _ => {
                     println!("Invalid choice, please try again");
                     continue;
-                },
-            }
+                }
+            };
+            return StepType{step_type_key: step_type_key };
         }
     }
 
@@ -180,7 +201,7 @@ impl WorkoutBuilder {
             println!("4) Butterfly");
             println!("5) IndividualMedley");
 
-            let mut input = get_input("");
+            let input: String = get_input("");
             let stroke = match input.trim() {
                 "1" => Stroke::Free,
                 "2" => Stroke::Breast,
@@ -190,11 +211,13 @@ impl WorkoutBuilder {
                 _ => continue,
             };
 
-            break StrokeType{stroke_type_key: Some(stroke)}
+            break StrokeType {
+                stroke_type_key: Some(stroke),
+            };
         }
     }
 
-    fn get_end_condition(&self) -> EndCondition{
+    fn get_end_condition(&self) -> EndCondition {
         loop {
             println!("Enter end condition:");
             println!("1) LapButton");
@@ -202,7 +225,7 @@ impl WorkoutBuilder {
             println!("3) Distance");
             println!("4) Iterations");
 
-            let mut input = get_input("");
+            let input: String = get_input("");
 
             match input.trim() {
                 "1" => return EndCondition::new(Condition::LapButton),
@@ -211,10 +234,26 @@ impl WorkoutBuilder {
                 "4" => return EndCondition::new(Condition::Iterations),
                 _ => {
                     println!("Invalid choice, please try again");
-                    continue
+                    continue;
                 }
             }
         }
     }
 
+    fn get_rest_step(
+        &self,
+        step_id: u64,
+        step_order: u8,
+        child_step_id: Cell<Option<u8>>,
+    ) -> ExecutableStepDTO {
+        let duration: f32 = get_input("Rest duration: ");
+        ExecutableStepDTO::rest_step(
+            step_id,
+            step_order,
+            child_step_id,
+            None,
+            EndCondition::new(Condition::Time),
+            duration,
+        )
+    }
 }

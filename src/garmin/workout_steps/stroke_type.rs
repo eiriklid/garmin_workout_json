@@ -12,7 +12,7 @@ pub enum Stroke{
 }
 
 
-#[derive(Deserialize)]
+#[derive(Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct StrokeType {
     pub stroke_type_key: Option<Stroke>,

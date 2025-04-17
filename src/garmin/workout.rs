@@ -59,8 +59,6 @@ impl Workout {
         workout_segments: Vec<WorkoutSegment>,
         pool_length: f32,
         pool_length_unit: Unit,
-        estimate_type: String,
-        estimated_distance_unit: Unit
     ) -> Self {
         Workout {
             workout_id,
@@ -91,8 +89,8 @@ impl Workout {
             workout_name_i18n_key: None,
             description_i18n_key: None,
             avg_training_speed: None,
-            estimate_type,
-            estimated_distance_unit,
+            estimate_type: "TIME_ESTIMATED".to_string(),
+            estimated_distance_unit: Unit{ unit_id: None, unit_key: None, factor: None},
             workout_thumbnail_url: None,
             is_session_transition_enabled: None,
             shared: false,

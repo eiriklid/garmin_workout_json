@@ -4,15 +4,16 @@ use crate::garmin::workout_steps::step_type::{Step, StepType};
 use crate::garmin::workout_steps::stroke_type::StrokeType;
 use crate::garmin::workout_steps::target_type::TargetType;
 use serde::{Deserialize, Serialize};
+use std::cell::Cell;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 #[serde(rename_all = "camelCase")]
 pub struct ExecutableStepDTO{
     step_id: u64,
     step_order: u8,
     step_type: StepType,
-    pub child_step_id: Option<u8>,
+    pub child_step_id: Cell<Option<u8>>,
     description: Option<String>,
     end_condition: EndCondition,
     end_condition_value: f32,
@@ -47,7 +48,7 @@ impl ExecutableStepDTO {
     pub fn new(step_id: u64,
                step_order: u8,
                step_type: StepType,
-               child_step_id: Option<u8>,
+               child_step_id: Cell<Option<u8>>,
                description: Option<String>,
                end_condition: EndCondition,
                end_condition_value: f32,
@@ -98,7 +99,7 @@ impl ExecutableStepDTO {
 
     pub fn rest_step(step_id: u64,
                      step_order: u8,
-                     child_step_id: Option<u8>,
+                     child_step_id: Cell<Option<u8>>,
                      description: Option<String>,
                      end_condition: EndCondition,
                      end_condition_value: f32) -> Self {
@@ -119,7 +120,7 @@ impl ExecutableStepDTO {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 struct EquipmentType{
     equipment_type_id: u8,
@@ -221,7 +222,7 @@ mod tests {
             StepType{
                 step_type_key: Step::Warmup,
             },
-            None,
+            Cell::new(None),
             None,
             EndCondition{
                 condition_type_key: Condition::Distance,
@@ -247,7 +248,7 @@ mod tests {
             StepType{
                 step_type_key: Step::Warmup,
             },
-            None,
+            Cell::new(None),
             None,
             EndCondition{
                 condition_type_key: Condition::Distance,

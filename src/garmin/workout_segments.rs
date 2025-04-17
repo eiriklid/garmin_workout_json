@@ -1,4 +1,4 @@
-use crate::garmin::sport_type::SportType;
+use crate::garmin::sport_type::{Sport, SportType};
 use crate::garmin::workout_steps::WorkoutStep;
 use serde::{Deserialize, Serialize};
 
@@ -16,4 +16,23 @@ pub struct WorkoutSegment {
     estimated_type: Option<String>,
     description: Option<String>,
     workout_steps: Vec<WorkoutStep>
+}
+
+impl WorkoutSegment {
+    pub fn new(workout_steps: Vec<WorkoutStep>) -> WorkoutSegment {
+        WorkoutSegment{
+            segment_order: 1,
+            sport_type: SportType::new(Sport::Swimming),
+            pool_length_unit: None,
+            pool_length: None,
+            avg_training_speed: None,
+            estimated_duration_in_secs: None,
+            estimated_distance_in_meters: None,
+            estimated_distance_unit: None,
+            estimated_type: None,
+            description: None,
+            workout_steps,
+        }
+
+    }
 }

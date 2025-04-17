@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize, Serializer};
 use serde::ser::SerializeStruct;
+use serde::{Deserialize, Serialize, Serializer};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all= "snake_case")]
@@ -8,7 +8,7 @@ pub enum Target{
     NoTarget,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct TargetType {
     workout_target_type_key: Target,
@@ -50,7 +50,6 @@ impl Serialize for TargetType {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]
