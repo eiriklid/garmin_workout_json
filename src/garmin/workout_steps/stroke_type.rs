@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize, Serializer};
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
 #[serde(rename_all="snake_case")]
 pub enum Stroke{
+    AnyStroke,
     Free,
     Breast,
     Back,
@@ -22,6 +23,7 @@ pub struct StrokeType {
 impl StrokeType {
     pub fn stroke_type_id(&self) -> u8 {
         match self.stroke_type_key {
+            Some(Stroke::AnyStroke) => 1,
             Some(Stroke::Breast) => 2,      // Todo: correct
             Some(Stroke::Back) => 3,        // Todo: correct
             Some(Stroke::Butterfly) => 4,   // Todo: correct

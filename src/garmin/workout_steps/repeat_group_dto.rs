@@ -73,7 +73,7 @@ mod tests {
             StepType{
                 step_type_key: Step::Warmup,
             },
-            None,
+            None.into(),
             None,
             EndCondition{
                 condition_type_key: Condition::Distance,
@@ -101,7 +101,7 @@ mod tests {
         assert_eq!(step.number_of_iterations, 8);
 
         //Check that first entry workout_steps have child_step_id set
-        assert_eq!(step.workout_steps[0].child_step_id, Some(1));
+        assert_eq!(step.workout_steps[0].child_step_id, Some(1).into());
     }
 
     #[test]
@@ -112,7 +112,7 @@ mod tests {
             StepType{
                 step_type_key: Step::Main,
             },
-            None,
+            None.into(),
             None,
             EndCondition{
                 condition_type_key: Condition::Distance,
@@ -131,7 +131,7 @@ mod tests {
              StepType{
                  step_type_key: Step::Rest,
              },
-             None,
+             None.into(),
              None,
              EndCondition{
                  condition_type_key: Condition::FixedRest,
@@ -434,7 +434,7 @@ mod tests {
         assert_eq!(result.step_id, 9615001366);
 
         assert_eq!(result.workout_steps.len(), 2);
-        assert_eq!(result.workout_steps[1].child_step_id, Some(1))
+        assert_eq!(result.workout_steps[1].child_step_id, Cell::new(Some(1)))
 
 
     }

@@ -178,7 +178,7 @@ impl WorkoutBuilder {
             println!("2) Cooldown");
             println!("3) Main");
 
-            let mut input: String = get_input("");
+            let input: String = get_input("");
             let step_type_key = match input.trim() {
                 "1" => Step::Warmup,
                 "2" => Step::Cooldown,

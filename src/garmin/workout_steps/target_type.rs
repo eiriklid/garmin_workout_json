@@ -6,6 +6,9 @@ use serde::{Deserialize, Serialize, Serializer};
 pub enum Target{
     #[serde(rename = "no.target")]
     NoTarget,
+    #[serde(rename = "swim.instruction")]
+    SwimInstruction,
+
 }
 
 #[derive(Deserialize, PartialEq)]
@@ -19,6 +22,7 @@ impl TargetType {
     pub fn workout_target_type_id(&self) -> u8{
         match self.workout_target_type_key {
             Target::NoTarget => 1,
+            Target::SwimInstruction => 18,
         }
     }
 
