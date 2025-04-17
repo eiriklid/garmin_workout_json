@@ -1,7 +1,8 @@
+pub mod workout_steps;
+pub mod workout_segments;
+pub mod sport_type;
+pub mod workout;
+pub mod unit;
+pub mod author;
 
-mod workout_steps;
-mod workout_segments;
-mod sport_type;
-mod workout;
-mod unit;
-mod author;
+

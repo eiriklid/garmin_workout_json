@@ -14,14 +14,18 @@ pub struct SportType {
 }
 
 impl SportType {
-    pub fn sport_type_id(&self) -> u8{
+    fn sport_type_id(&self) -> u8{
         match self.sport_type_key {
             Sport::Swimming => 4,
         }
     }
 
-    pub fn display_order(&self) -> u8 {
+    fn display_order(&self) -> u8 {
         self.sport_type_id() - 1
+    }
+
+    pub fn new(sport: Sport) -> SportType {
+        SportType{sport_type_key: sport}
     }
 }
 

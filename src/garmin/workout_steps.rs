@@ -1,14 +1,14 @@
 use serde::{Deserialize, Serialize};
 
-mod step_type;
-mod end_condition;
-mod target_type;
+pub mod step_type;
+pub mod end_condition;
+pub mod target_type;
 mod preferred_end_condition_unit;
-mod stroke_type;
-mod executable_step_dto;
-mod repeat_group_dto;
+pub mod stroke_type;
+pub mod executable_step_dto;
+pub mod repeat_group_dto;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 pub enum WorkoutStep {
     ExecutableStepDTO,

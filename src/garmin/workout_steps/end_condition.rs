@@ -24,6 +24,10 @@ pub struct EndCondition {
 
 
 impl EndCondition {
+
+    pub fn new(condition: Condition) -> Self {
+        EndCondition{condition_type_key: condition, displayable: true}
+    }
     pub fn condition_type_id(&self) -> u8 {
         match self.condition_type_key {
             Condition::LapButton => 1,

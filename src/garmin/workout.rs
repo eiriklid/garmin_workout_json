@@ -1,5 +1,5 @@
 use crate::garmin::author::Author;
-use crate::garmin::sport_type::SportType;
+use crate::garmin::sport_type::{Sport, SportType};
 use crate::garmin::unit::Unit;
 use crate::garmin::workout_segments::WorkoutSegment;
 use serde::{Deserialize, Serialize};
@@ -47,6 +47,58 @@ pub struct Workout {
     shared: bool
 }
 
+
+impl Workout {
+    pub fn new_swimming_workout(
+        workout_id: u64,
+        owner_id: u64,
+        workout_name: String,
+        description: Option<String>,
+        updated_date: String, // Find datetime representation
+        created_date: String, // Find datetime representation
+        workout_segments: Vec<WorkoutSegment>,
+        pool_length: f32,
+        pool_length_unit: Unit,
+        estimate_type: String,
+        estimated_distance_unit: Unit
+    ) -> Self {
+        Workout {
+            workout_id,
+            owner_id,
+            workout_name,
+            description,
+            updated_date,
+            created_date,
+            sport_type: SportType::new(Sport::Swimming),
+            sub_sport_type: None,
+            training_plan_id: None,
+            author: Default::default(),
+            shared_with_users: None,
+            estimated_duration_in_secs: 0,
+            estimated_distance_in_meters: None,
+            workout_segments,
+            pool_length,
+            pool_length_unit,
+            locale: None,
+            workout_provider: None,
+            workout_source_id: None,
+            upload_timestamp: None,
+            atp_plan_id: None,
+            consumer: None,
+            consumer_name: None,
+            consumer_image_u_r_l: None,
+            consumer_website_u_r_l: None,
+            workout_name_i18n_key: None,
+            description_i18n_key: None,
+            avg_training_speed: None,
+            estimate_type,
+            estimated_distance_unit,
+            workout_thumbnail_url: None,
+            is_session_transition_enabled: None,
+            shared: false,
+        }
+    }
+}
 
 #[cfg(test)]
 mod tests {
