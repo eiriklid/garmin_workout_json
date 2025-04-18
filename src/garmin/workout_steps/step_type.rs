@@ -19,6 +19,10 @@ pub struct StepType {
 
 impl StepType {
 
+    pub fn new(step_type_key: Step) -> Self {
+        Self { step_type_key }
+    }
+
     pub fn step_type_id(&self) -> u8 {
         match self.step_type_key {
             Step::Warmup => 1,

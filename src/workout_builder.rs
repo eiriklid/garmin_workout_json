@@ -1,3 +1,11 @@
+/*
+Still work in progress.
+
+Todo:
+    - propagating step_order in RepeatGroupDTO
+    - proper logic around rest steps
+ */
+
 use crate::garmin::workout::Workout;
 use crate::garmin::workout_steps::end_condition::{Condition, EndCondition};
 use crate::garmin::workout_steps::step_type::{Step, StepType};
@@ -75,7 +83,6 @@ impl WorkoutBuilder {
                 end_value,
                 target_type,
                 stroke_type,
-                false,
             );
 
             if repeat {
@@ -94,7 +101,7 @@ impl WorkoutBuilder {
                         ),
                     ],
                 );
-                workout_steps.push(WorkoutStep::RepeatGroupDTO(repeat_group))
+                workout_steps.push(WorkoutStep::Repeat(repeat_group))
             }
 
             let choice = loop {

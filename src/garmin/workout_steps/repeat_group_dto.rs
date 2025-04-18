@@ -83,8 +83,7 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
-            },
-            false
+            }
         );
 
 
@@ -122,28 +121,26 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
-            },
-            false
+            }
         ),
-         ExecutableStepDTO::new(
-             9615001368,
-             5,
-             StepType{
-                 step_type_key: Step::Rest,
-             },
-             None.into(),
-             None,
-             EndCondition{
-                 condition_type_key: Condition::FixedRest,
-                 displayable: true,
-             },
-             15.0,
-             None,
-             StrokeType{
-                 stroke_type_key: None,
-             },
-             true
-         )];
+                                 ExecutableStepDTO::new(
+                                     9615001368,
+                                     5,
+                                     StepType{
+                                         step_type_key: Step::Rest,
+                                     },
+                                     None.into(),
+                                     None,
+                                     EndCondition{
+                                         condition_type_key: Condition::FixedRest,
+                                         displayable: true,
+                                     },
+                                     15.0,
+                                     None,
+                                     StrokeType{
+                                         stroke_type_key: None,
+                                     }
+                                 )];
 
         let repeat_group = RepeatGroupDTO::new(
             9615001366,

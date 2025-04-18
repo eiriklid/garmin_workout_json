@@ -41,10 +41,6 @@ pub struct ExecutableStepDTO{
 }
 
 impl ExecutableStepDTO {
-    /*
-    Todo:
-        - Create utility function to create rest step
-     */
     pub fn new(step_id: u64,
                step_order: u8,
                step_type: StepType,
@@ -53,16 +49,11 @@ impl ExecutableStepDTO {
                end_condition: EndCondition,
                end_condition_value: f32,
                target_type: Option<TargetType>,
-               stroke_type: StrokeType,
-               is_rest_step: bool) -> Self {
+               stroke_type: StrokeType) -> Self {
+
         let target_type_defined = match target_type {
             None => {TargetType::default()},
             Some(target_type) => { target_type }
-        };
-
-        let preferred_end_condition_unit = match is_rest_step {
-            true => None,
-            false => Some(PreferredEndConditionUnit::default())
         };
 
         ExecutableStepDTO{
@@ -73,7 +64,7 @@ impl ExecutableStepDTO {
             description,
             end_condition,
             end_condition_value,
-            preferred_end_condition_unit: preferred_end_condition_unit,
+            preferred_end_condition_unit: Some(PreferredEndConditionUnit::default()),
             end_condition_compare: None,
             target_type: target_type_defined,
             target_value_one: None,
@@ -113,8 +104,7 @@ impl ExecutableStepDTO {
             end_condition, // Todo: Check for correctness
             end_condition_value,
             Some(TargetType::default()),
-            StrokeType{stroke_type_key: None},
-            true
+            StrokeType{stroke_type_key: None}
         )
     }
 }
@@ -232,8 +222,7 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
-            },
-            false
+            }
         );
         assert_eq!(object.step_id, 9615001364);
         assert_eq!(object.step_order, 1);
@@ -258,8 +247,7 @@ mod tests {
             None,
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
-            },
-            false
+            }
         );
 
         let result = serde_json::to_string(&object).unwrap();

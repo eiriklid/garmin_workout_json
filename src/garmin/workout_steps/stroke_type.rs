@@ -21,6 +21,10 @@ pub struct StrokeType {
 
 
 impl StrokeType {
+
+    pub fn new(stroke_type_key: Option<Stroke>) -> Self {
+        StrokeType{stroke_type_key}
+    }
     pub fn stroke_type_id(&self) -> u8 {
         match self.stroke_type_key {
             Some(Stroke::AnyStroke) => 1,

@@ -105,7 +105,7 @@ mod tests {
 
     #[test]
     fn test_deserialize() {
-        let json_string = fs::read_to_string("src/expected_workout.json")
+        let json_string = fs::read_to_string("../workouts_json/expected_workout.json")
             .expect("Missing expected file");
         let workout: Workout = serde_json::from_str(&json_string)
             .expect("Invalid JSON in expected file");
