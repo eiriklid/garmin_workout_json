@@ -73,7 +73,7 @@ impl WorkoutBuilder {
                 _ => None,
             };
 
-            let executable_step = ExecutableStepDTO::new(
+            let executable_step = ExecutableStepDTO::active_step(
                 step_counter + STEP_OFFSET,
                 step_counter as u8,
                 step_type,

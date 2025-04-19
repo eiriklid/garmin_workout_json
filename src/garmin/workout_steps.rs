@@ -14,6 +14,8 @@ use crate::garmin::workout_steps::repeat_group_dto::RepeatGroupDTO;
 #[derive(Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type")]
 pub enum WorkoutStep {
+    #[serde(rename = "ExecutableStepDTO")]
     Single(ExecutableStepDTO),
+    #[serde(rename = "RepeatGroupDTO")]
     Repeat(RepeatGroupDTO),
 }

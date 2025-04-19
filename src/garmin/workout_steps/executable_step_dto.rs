@@ -49,11 +49,16 @@ impl ExecutableStepDTO {
                end_condition: EndCondition,
                end_condition_value: f32,
                target_type: Option<TargetType>,
-               stroke_type: StrokeType) -> Self {
-
+               stroke_type: StrokeType,
+               is_rest_step: bool) -> Self {
         let target_type_defined = match target_type {
             None => {TargetType::default()},
             Some(target_type) => { target_type }
+        };
+
+        let preferred_end_condition_unit = match is_rest_step {
+            true => None,
+            false => Some(PreferredEndConditionUnit::default())
         };
 
         ExecutableStepDTO{
@@ -64,7 +69,7 @@ impl ExecutableStepDTO {
             description,
             end_condition,
             end_condition_value,
-            preferred_end_condition_unit: Some(PreferredEndConditionUnit::default()),
+            preferred_end_condition_unit: preferred_end_condition_unit,
             end_condition_compare: None,
             target_type: target_type_defined,
             target_value_one: None,
@@ -88,6 +93,31 @@ impl ExecutableStepDTO {
         }
     }
 
+    pub fn active_step(
+        step_id: u64,
+        step_order: u8,
+        step_type: StepType,
+        child_step_id: Cell<Option<u8>>,
+        description: Option<String>,
+        end_condition: EndCondition,
+        end_condition_value: f32,
+        target_type: Option<TargetType>,
+        stroke_type: StrokeType,
+    ) -> Self {
+        Self::new(
+            step_id,
+            step_order,
+            step_type,
+            child_step_id,
+            description,
+            end_condition,
+            end_condition_value,
+            target_type,
+            stroke_type,
+            false
+        )
+    }
+
     pub fn rest_step(step_id: u64,
                      step_order: u8,
                      child_step_id: Cell<Option<u8>>,
@@ -103,8 +133,9 @@ impl ExecutableStepDTO {
             description,
             end_condition, // Todo: Check for correctness
             end_condition_value,
-            Some(TargetType::default()),
-            StrokeType{stroke_type_key: None}
+            None,
+            StrokeType{stroke_type_key: None},
+            true
         )
     }
 }
@@ -206,7 +237,7 @@ mod tests {
 
     #[test]
     fn test_object_instantiation() {
-        let object = ExecutableStepDTO::new(
+        let object = ExecutableStepDTO::active_step(
             9615001364,
             1,
             StepType{
@@ -231,7 +262,7 @@ mod tests {
 
     #[test]
     fn test_serialize(){
-        let object = ExecutableStepDTO::new(
+        let object = ExecutableStepDTO::active_step(
             9615001364,
             1,
             StepType{

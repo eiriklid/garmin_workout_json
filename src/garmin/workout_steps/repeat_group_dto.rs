@@ -20,7 +20,7 @@ pub struct RepeatGroupDTO {
     end_condition_compare: Option<bool>,
     end_condition: EndCondition,
     skip_last_rest_step: Option<bool>,
-    smart_repeat: bool
+    smart_repeat: bool,
 }
 
 impl RepeatGroupDTO {
@@ -29,17 +29,17 @@ impl RepeatGroupDTO {
         step_order: u8,
         child_step_id: u8,
         number_of_iterations: u8,
-        mut workout_steps: Vec<ExecutableStepDTO> // Vec<WorkoutStep>
+        mut workout_steps: Vec<ExecutableStepDTO>, // Vec<WorkoutStep>
     ) -> Self {
-
         // Set child_step_id in workout steps
-        for i in workout_steps.iter_mut(){ i.child_step_id = Cell::new(Some(child_step_id))};
-        
+        for i in workout_steps.iter_mut() {
+            i.child_step_id = Cell::new(Some(child_step_id))
+        }
 
         RepeatGroupDTO {
             step_id,
             step_order,
-            step_type: StepType{
+            step_type: StepType {
                 step_type_key: Step::Repeat,
             },
             child_step_id,
@@ -49,14 +49,14 @@ impl RepeatGroupDTO {
 
             preferred_end_condition_unit: None,
             end_condition_compare: None,
-            end_condition: EndCondition{
+            end_condition: EndCondition {
                 condition_type_key: Condition::Iterations,
                 displayable: false,
             },
             skip_last_rest_step: None,
             smart_repeat: false,
         }
-        }
+    }
 }
 
 #[cfg(test)]
@@ -67,33 +67,26 @@ mod tests {
 
     #[test]
     fn test_build_repeat_group_dto() {
-        let workout_step = ExecutableStepDTO::new(
+        let workout_step = ExecutableStepDTO::active_step(
             9615001364,
             3,
-            StepType{
+            StepType {
                 step_type_key: Step::Warmup,
             },
             None.into(),
             None,
-            EndCondition{
+            EndCondition {
                 condition_type_key: Condition::Distance,
-                displayable: true
+                displayable: true,
             },
             400.0,
             None,
-            StrokeType{
+            StrokeType {
                 stroke_type_key: Some(Stroke::Free),
-            }
+            },
         );
 
-
-        let step = RepeatGroupDTO::new(
-            9615001366,
-            3,
-            1,
-            8,
-            vec![workout_step]
-        );
+        let step = RepeatGroupDTO::new(9615001366, 3, 1, 8, vec![workout_step]);
         assert_eq!(step.step_id, 9615001366);
         assert_eq!(step.step_order, 3);
         assert_eq!(step.child_step_id, 1);
@@ -104,51 +97,40 @@ mod tests {
     }
 
     #[test]
-    fn test_serialize(){
-        let workout_steps = vec![ExecutableStepDTO::new(
-            9615001367,
-            4,
-            StepType{
-                step_type_key: Step::Main,
-            },
-            None.into(),
-            None,
-            EndCondition{
-                condition_type_key: Condition::Distance,
-                displayable: true
-            },
-            100.0,
-            None,
-            StrokeType{
-                stroke_type_key: Some(Stroke::Free),
-            }
-        ),
-                                 ExecutableStepDTO::new(
-                                     9615001368,
-                                     5,
-                                     StepType{
-                                         step_type_key: Step::Rest,
-                                     },
-                                     None.into(),
-                                     None,
-                                     EndCondition{
-                                         condition_type_key: Condition::FixedRest,
-                                         displayable: true,
-                                     },
-                                     15.0,
-                                     None,
-                                     StrokeType{
-                                         stroke_type_key: None,
-                                     }
-                                 )];
+    fn test_serialize() {
+        let workout_steps = vec![
+            ExecutableStepDTO::active_step(
+                9615001367,
+                4,
+                StepType {
+                    step_type_key: Step::Main,
+                },
+                None.into(),
+                None,
+                EndCondition {
+                    condition_type_key: Condition::Distance,
+                    displayable: true,
+                },
+                100.0,
+                None,
+                StrokeType {
+                    stroke_type_key: Some(Stroke::Free),
+                },
+            ),
+            ExecutableStepDTO::rest_step(
+                9615001368,
+                5,
+                None.into(),
+                None,
+                EndCondition {
+                    condition_type_key: Condition::FixedRest,
+                    displayable: true,
+                },
+                15.0,
+            ),
+        ];
 
-        let repeat_group = RepeatGroupDTO::new(
-            9615001366,
-            3,
-            1,
-            8,
-            workout_steps
-        );
+        let repeat_group = RepeatGroupDTO::new(9615001366, 3, 1, 8, workout_steps);
 
         let serialized = serde_json::to_string(&repeat_group).unwrap();
         let expected_json = r#"{
@@ -284,7 +266,10 @@ mod tests {
           "skipLastRestStep": null,
           "smartRepeat": false
         }
-        "#.chars().filter(|c| !c.is_whitespace()).collect::<String>();
+        "#
+        .chars()
+        .filter(|c| !c.is_whitespace())
+        .collect::<String>();
 
         assert_eq!(serialized, expected_json);
     }
@@ -432,7 +417,5 @@ mod tests {
 
         assert_eq!(result.workout_steps.len(), 2);
         assert_eq!(result.workout_steps[1].child_step_id, Cell::new(Some(1)))
-
-
     }
 }

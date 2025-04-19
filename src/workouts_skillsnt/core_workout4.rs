@@ -34,7 +34,7 @@ pub(crate) fn main(){
                         1,
                         2,
                         vec![
-                            ExecutableStepDTO::new(
+                            ExecutableStepDTO::active_step(
                                 2 + STEP_OFFSET,
                                 2,
                                 StepType::new(Step::Warmup),
