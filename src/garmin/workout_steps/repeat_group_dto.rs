@@ -64,6 +64,7 @@ mod tests {
     use super::*;
     use crate::garmin::workout_steps::step_type::Step;
     use crate::garmin::workout_steps::stroke_type::{Stroke, StrokeType};
+    use crate::garmin::workout_steps::target_type::TargetType;
 
     #[test]
     fn test_build_repeat_group_dto() {
@@ -80,7 +81,7 @@ mod tests {
                 displayable: true,
             },
             400.0,
-            None,
+            Some(TargetType::default()),
             StrokeType {
                 stroke_type_key: Some(Stroke::Free),
             },
@@ -112,7 +113,7 @@ mod tests {
                     displayable: true,
                 },
                 100.0,
-                None,
+                Some(TargetType::default()),
                 StrokeType {
                     stroke_type_key: Some(Stroke::Free),
                 },

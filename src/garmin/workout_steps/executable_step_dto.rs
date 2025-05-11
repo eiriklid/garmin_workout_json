@@ -19,7 +19,7 @@ pub struct ExecutableStepDTO{
     end_condition_value: f32,
     preferred_end_condition_unit: Option<PreferredEndConditionUnit>,
     end_condition_compare: Option<bool>, // Unsure which type this field have
-    target_type: TargetType,
+    target_type: Option<TargetType>,
     target_value_one: Option<f32>,
     target_value_two: Option<f32>,
     target_value_unit: Option<String>,
@@ -51,14 +51,20 @@ impl ExecutableStepDTO {
                target_type: Option<TargetType>,
                stroke_type: StrokeType,
                is_rest_step: bool) -> Self {
-        let target_type_defined = match target_type {
-            None => {TargetType::default()},
-            Some(target_type) => { target_type }
-        };
-
         let preferred_end_condition_unit = match is_rest_step {
             true => None,
             false => Some(PreferredEndConditionUnit::default())
+        };
+
+        let weight_value = match is_rest_step {
+            true => Some(-1.0),
+            false => None
+        };
+
+        // todo: implement weight unit
+        let weight_unit = match is_rest_step {
+            true => Some("".to_string()),
+            false => None
         };
 
         ExecutableStepDTO{
@@ -69,9 +75,9 @@ impl ExecutableStepDTO {
             description,
             end_condition,
             end_condition_value,
-            preferred_end_condition_unit: preferred_end_condition_unit,
+            preferred_end_condition_unit,
             end_condition_compare: None,
-            target_type: target_type_defined,
+            target_type,
             target_value_one: None,
             target_value_two: None,
             target_value_unit: None,
@@ -88,8 +94,8 @@ impl ExecutableStepDTO {
             exercise_name: None,
             workout_provider: None,
             provider_exercise_source_id: None,
-            weight_value: None,
-            weight_unit: None
+            weight_value,
+            weight_unit
         }
     }
 
@@ -250,14 +256,14 @@ mod tests {
                 displayable: true
             },
             400.0,
-            None,
+            Some(TargetType::default()),
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
             }
         );
         assert_eq!(object.step_id, 9615001364);
         assert_eq!(object.step_order, 1);
-        assert_eq!(object.target_type.workout_target_type_id(), 1)
+        assert_eq!(object.target_type.unwrap().workout_target_type_id(), 1)
     }
 
     #[test]
@@ -275,7 +281,7 @@ mod tests {
                 displayable: true
             },
             400.0,
-            None,
+            Some(TargetType::default()),
             StrokeType{
                 stroke_type_key: Some(Stroke::Free),
             }
@@ -344,5 +350,80 @@ mod tests {
 
         assert_eq!(result, expected_json);
     }
-}
 
+    #[test]
+    fn test_rest_step_serialize() {
+      let expected_json = r#"
+        {
+          "type": "ExecutableStepDTO",
+          "stepId": 9887658473,
+          "stepOrder": 3,
+          "stepType": {
+              "stepTypeId": 5,
+              "stepTypeKey": "rest",
+              "displayOrder": 5
+          },
+          "childStepId": 1,
+          "description": null,
+          "endCondition": {
+              "conditionTypeId": 8,
+              "conditionTypeKey": "fixed.rest",
+              "displayOrder": 8,
+              "displayable": true
+          },
+          "endConditionValue": 25.0,
+          "preferredEndConditionUnit": null,
+          "endConditionCompare": "",
+          "targetType": null,
+          "targetValueOne": null,
+          "targetValueTwo": null,
+          "targetValueUnit": null,
+          "zoneNumber": null,
+          "secondaryTargetType": null,
+          "secondaryTargetValueOne": null,
+          "secondaryTargetValueTwo": null,
+          "secondaryTargetValueUnit": null,
+          "secondaryZoneNumber": null,
+          "endConditionZone": null,
+          "strokeType": {
+              "strokeTypeId": 0,
+              "strokeTypeKey": null,
+              "displayOrder": 0
+          },
+          "equipmentType": {
+              "equipmentTypeId": 0,
+              "equipmentTypeKey": null,
+              "displayOrder": 0
+          },
+          "category": null,
+          "exerciseName": null,
+          "workoutProvider": null,
+          "providerExerciseSourceId": null,
+          "weightValue": -1.0,
+          "weightUnit": {
+              "unitId": 8,
+              "unitKey": "kilogram",
+              "factor": 1000.0
+          }
+      }"#
+      .chars()
+      .filter(|c| !c.is_whitespace())
+      .collect::<String>();
+
+      let object = ExecutableStepDTO::rest_step(
+        9887658473,
+        3,
+        Cell::new(Some(1)),
+        None,
+        EndCondition{
+          condition_type_key: Condition::FixedRest,
+          displayable: true
+        },
+        25.0,
+      );
+
+      let result = serde_json::to_string(&object).unwrap();
+
+      assert_eq!(result, expected_json);
+    }
+}
